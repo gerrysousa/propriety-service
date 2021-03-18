@@ -1,11 +1,14 @@
 package br.com.proprietyservice.model;
 
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -26,7 +29,8 @@ public class Propriety {
 
   private String description;
 
-  @OneToMany(targetEntity=Coordinate.class, mappedBy="propriety", fetch= FetchType.EAGER)
+  @ElementCollection
+  @OneToMany(cascade = CascadeType.ALL)
   private List<Coordinate> coordinates;
 
   public Long getProprietyId() {

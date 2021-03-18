@@ -1,21 +1,24 @@
 package br.com.proprietyservice.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Coordinate {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "coordinateId")
   private Long coordinateId;
 
-  @NotEmpty(message = "The field latitude is mandatory!")
+  @NotNull(message = "The field latitude is mandatory!")
   private double latitude;
 
-  @NotEmpty(message = "The field longitude is mandatory!")
+  @NotNull(message = "The field longitude is mandatory!")
   private double longitude;
 
   public Long getCoordinateId() {
