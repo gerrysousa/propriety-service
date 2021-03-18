@@ -21,10 +21,6 @@ public class Coordinate {
   @NotNull(message = "The field longitude is mandatory!")
   private double longitude;
 
-  public Long getCoordinateId() {
-    return coordinateId;
-  }
-
   public void setCoordinateId(Long coordinateId) {
     this.coordinateId = coordinateId;
   }
