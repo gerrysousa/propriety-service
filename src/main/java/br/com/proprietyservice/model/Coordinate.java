@@ -16,28 +16,28 @@ public class Coordinate {
   private Long coordinateId;
 
   @NotNull(message = "The field latitude is mandatory!")
-  private double latitude;
+  private double lat;
 
   @NotNull(message = "The field longitude is mandatory!")
-  private double longitude;
+  private double lng;
 
   public void setCoordinateId(Long coordinateId) {
     this.coordinateId = coordinateId;
   }
 
-  public double getLatitude() {
-    return latitude;
+  public double getLat() {
+    return lat;
   }
 
-  public void setLatitude(double latitude) {
-    this.latitude = latitude;
+  public void setLat(double lat) {
+    this.lat = lat;
   }
 
-  public double getLongitude() {
-    return longitude;
+  public double getLng() {
+    return lng;
   }
 
-  public void setLongitude(double longitude) {
-    this.longitude = longitude;
+  public void setLng(double lng) {
+    this.lng = lng;
   }
 }
