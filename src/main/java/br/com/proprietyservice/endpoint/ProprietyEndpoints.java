@@ -1,10 +1,12 @@
 package br.com.proprietyservice.endpoint;
 
+import br.com.proprietyservice.config.MessagingConfig;
 import br.com.proprietyservice.error.ResourceNotFoundException;
 
 import br.com.proprietyservice.model.Propriety;
 import br.com.proprietyservice.repository.ProprietyRepository;
 import javax.validation.Valid;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("properties")
 public class ProprietyEndpoints {
   private final ProprietyRepository proprietyDAO;
+
+  @Autowired
+  private RabbitTemplate rabbitTemplate;
 
   @Autowired
   public ProprietyEndpoints(ProprietyRepository proprietyDAO) {
@@ -63,6 +68,19 @@ public class ProprietyEndpoints {
     verifyIfProprietyExists(propriety.getProprietyId());
     proprietyDAO.save(propriety);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+  @GetMapping(path = "/hello")
+  public ResponseEntity<?> hello() {
+
+
+    return new ResponseEntity<>( "testes ok", HttpStatus.OK);
+  }
+
+  @PostMapping(path = "/relay")
+  @Transactional(rollbackFor = Exception.class)
+  public ResponseEntity<?> publisher(@Valid @RequestBody Propriety propriety) {
+    rabbitTemplate.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, propriety);
+    return new ResponseEntity<>(HttpStatus.ACCEPTED);
   }
 
   private void verifyIfProprietyExists(Long id){
