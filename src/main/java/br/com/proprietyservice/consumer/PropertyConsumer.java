@@ -17,10 +17,10 @@ public class PropertyConsumer {
   }
 
 
-  @RabbitListener(queues = MessagingConfig.QUEUE)
-  public void consumeMessageFromQueue(Propriety propriety) {
-    System.out.println("Message recieved from queue : " + propriety.toString());
-
-    proprietyDAO.save(propriety);
-  }
+//  @RabbitListener(queues = MessagingConfig.QUEUE)
+//  public void consumeMessageFromQueue(Propriety propriety) {
+//    System.out.println("Message recieved from queue : " + propriety.toString());
+//
+//    proprietyDAO.save(propriety);
+//  }
 }
